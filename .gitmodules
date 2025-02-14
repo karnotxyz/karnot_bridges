@@ -1,0 +1,4 @@
+[submodule "starkgate-contracts"]
+	path = starkgate-contracts
+	url = https://github.com/karnotxyz/starkgate-contracts.git
+	branch = development
