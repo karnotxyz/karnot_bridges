@@ -8,8 +8,9 @@ const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
 
 const messagingContract = '0x123456';
 
-async function deployAppchainBridge(acc: Account) {
+async function deployAppchainBridge() {
     const { class_hash } = await declareContract("TokenBridge", "starkgate_contracts", "./starkgate-contracts/cairo_contracts");
+    console.log("class_hash: ", class_hash);
     sleep(10000);
     const contract = await deployContract("AppchainBridge", class_hash, [process.env.ACCOUNT_ADDRESS as string, "86400"]);
     console.log("AppchainBridge deployed at: ", contract.address);
@@ -17,6 +18,7 @@ async function deployAppchainBridge(acc: Account) {
 
 async function deployL2Brdige(acc: Account) {
     const { class_hash } = await declareContract("TokenBridge", "starknet_bridge");
+    console.log("class_hash: ", class_hash);
     sleep(10000);
     const appchainBridge = getContracts().AppchainBridge;
     const contract = await deployContract("TokenBridge", class_hash, [
@@ -27,13 +29,11 @@ async function deployL2Brdige(acc: Account) {
     console.log("TokenBridge L2 deployed at: ", contract.address);
 }
 
-
-
 async function main() {
-    const acc = getAccount();
+    // const acc = getAccount();
 
     // Deploy Appchain bridge
-    await deployAppchainBridge(acc);
+    await deployAppchainBridge();
 
     // await deployL2Brdige(acc);
 }
