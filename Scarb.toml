@@ -1,22 +1,23 @@
 [package]
 name = "starknet_bridge"
 version = "0.1.0"
-edition = "2023_11"
+edition = "2024_07"
 
 # See more keys and their definitions at https://docs.swmansion.com/scarb/docs/reference/manifest.html
 
 [dependencies]
-openzeppelin = { git = "https://github.com/OpenZeppelin/cairo-contracts.git", tag = "v0.16.0" }
-starknet = "2.6.4"
-piltover = { git = "https://github.com/keep-starknet-strange/piltover", branch="main"}
+starknet = "2.9.2"
+openzeppelin = "0.20.0"
+piltover = { git = "https://github.com/keep-starknet-strange/piltover", ref = "fb9d9889100f9c88eba1ff91f619c1a67afc2a71" }
 
 [dev-dependencies]
-snforge_std = { git = "https://github.com/foundry-rs/starknet-foundry", tag = "v0.27.0" }
+snforge_std = { git = "https://github.com/foundry-rs/starknet-foundry", tag = "v0.34.0" }
 
 [[target.starknet-contract]]
 casm = true
 allowed-libfuncs-list.name = "experimental"
-
+build-external-contracts = ["piltover::appchain::appchain"]
+# build-external-contracts = ["openzeppelin_presets::account::AccountUpgradeable"]
 
 [scripts]
 test = "snforge test"
